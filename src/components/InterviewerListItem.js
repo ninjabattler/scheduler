@@ -8,7 +8,7 @@ export default function InterviewerListItem(props) {
   let name;
   props.selected ? name = props.name : name = '';
   let onClick;
-  props.setInterviewer ? onClick = ()=>{props.setInterviewer(props.name)} : onClick = ()=>{};
+  props.setInterviewer ? onClick = ()=>{props.setInterviewer(props.id)} : onClick = ()=>{};
 
   return (
     <li className={className} onClick={onClick}>
