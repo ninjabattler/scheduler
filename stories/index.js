@@ -17,6 +17,7 @@ import Show from "components/Appointment/show";
 import Confirm from "components/Appointment/confirm";
 import Status from "components/Appointment/status";
 import Error from "components/Appointment/error";
+import Form from "components/Appointment/form";
 
 storiesOf("Button", module)
   .addParameters({
@@ -142,3 +143,5 @@ storiesOf("Appointment", module)
   .add("Confirm", () => <Confirm message="End it's pitiful existence?" onConfirm={action('confirm')} onCancel={action('cancel')}/>)
   .add("Status", () => <Status message='Removing from reality'/>)
   .add("Error", () => <Error message='Subject does not want to be removed it seems' onClose={action('close')}/>)
+  .add("Create", () => <Form interviewers={interviewers} onSave={action('save')} onCancel={action('cancel')}/>)
+  .add("Edit", () => <Form name='MEEE' interviewers={interviewers} interviewer={3} onSave={action('save')} onCancel={action('cancel')}/>)
