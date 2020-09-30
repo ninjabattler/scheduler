@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
-
 import "components/Application.scss";
-
 import DayList from 'components/DayList';
-
 import Appointment from 'components/Appointment';
-
+import { getAppointmentsForDay } from "helpers/selectors";
 const config = { proxy: { host: 'localhost', port: '8001' } }
 
 export default function Application(props) {
@@ -16,20 +12,23 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
-    appointments: []
+    appointments: {}
   });
-
   const setDay = day => setState({ ...state, day });
 
-  const setDays = days => setState(prev => ({ ...prev, days }));
-
   useEffect(() => {
-    axios.get('/api/days',config)
-    .then((res)=>{
-      setDays(res.data)
-    })
-  }, [])
+    Promise.all([
+      axios.get('/api/days',config),
+      axios.get('/api/appointments',config),
+      axios.get('/api/interviewers',config)
+    ]).then((all) => {
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data}));
+      dailyAppointments.push(all[1].data);
+    });
+  }, []);
 
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  
   return (
     <main className="layout">
       <section className="sidebar">
@@ -54,7 +53,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {state.appointments.map(appointment=>(
+        {dailyAppointments.map(appointment=>(
           <Appointment key={appointment.id} {...appointment} />
         ))}
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
