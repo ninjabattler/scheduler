@@ -70,7 +70,7 @@ export default function Application(props) {
   let [days, setDay] = useState([]);
 
   useEffect(() => {
-    axios.get('localhost:8001/api/days',config)
+    axios.get('/api/days',config)
     .then((res)=>{
       console.log(res)
     })
