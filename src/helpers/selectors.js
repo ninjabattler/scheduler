@@ -21,6 +21,29 @@ export function getAppointmentsForDay(state, day) {
   return correctAppointments;
 
 }
+
+export function getInterviewersForDay(state, day) {
+  let appointments = [];
+
+  for(const st of state.days){
+    if(st.name === day) {
+      appointments = st.interviewers;
+    }
+  }
+
+  let correctInterviews = [];
+
+  for(const st in state.appointments){
+    for(const appointment of appointments){
+      if(state.appointments[st].id === appointment) {
+        correctInterviews.push(state.interviewers[st]);
+      }
+    }
+  }
+
+  return correctInterviews;
+}
+
 export function getInterview(state, interview) {
   
   let foundInterview = null;
