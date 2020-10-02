@@ -8,6 +8,30 @@ const config = { proxy: { host: 'localhost', port: '8001' } }
 
 export default function Application(props) {
 
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    axios.put(`/api/appointments/${id}`, appointment, config)
+      .then((res)=>{
+        setState({...state, appointments});
+      })
+  }
+
+  function save(name, interviewer, id, cb) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    bookInterview(id, interview)
+  }
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -41,6 +65,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        onSave={save}
       />
     );
   });
@@ -48,7 +73,6 @@ export default function Application(props) {
   return (
     <main className="layout">
       <section className="sidebar">
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img
           className="sidebar--centered"
           src="images/logo.png"
