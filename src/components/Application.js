@@ -4,10 +4,12 @@ import "components/Application.scss";
 import DayList from 'components/DayList';
 import Appointment from 'components/Appointment';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
+import { forceReRender } from "@storybook/react/dist/client/preview";
 const config = { proxy: { host: 'localhost', port: '8001' } }
 
 export default function Application(props) {
 
+  //Create a new appointment
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -18,18 +20,35 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    axios.put(`/api/appointments/${id}`, appointment, config)
+    return axios.put(`/api/appointments/${id}`, appointment, config)
       .then((res)=>{
         setState({...state, appointments});
       })
   }
 
-  function save(name, interviewer, id, cb) {
+  //Delete an appointment
+  function deleteInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.delete(`/api/appointments/${id}`, appointment, config)
+      .then((res)=>{
+        setState({...state, appointments});
+      })
+  }
+
+  function save(name, interviewer, id) {
     const interview = {
       student: name,
       interviewer
     };
-    bookInterview(id, interview)
+    return bookInterview(id, interview)
   }
 
   const [state, setState] = useState({
@@ -66,6 +85,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         onSave={save}
+        onDelete={deleteInterview}
       />
     );
   });
