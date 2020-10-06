@@ -20,7 +20,6 @@ export default function useApplicationData() {
       axios.get('/api/interviewers',config)
     ]).then((all) => {
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
-      console.log(all[0].data)
       dailyAppointments.push(all[1].data);
     });
   }, []);
@@ -41,7 +40,6 @@ export default function useApplicationData() {
         axios.get(`/api/days`, config)
         .then((days)=>{
           setState({...state, appointments, days: days.data});
-          console.log(state.days)
         })
       })
   };
@@ -69,7 +67,7 @@ export default function useApplicationData() {
           axios.get(`/api/days`, config)
           .then((days)=>{
             setState({...state, appointments, days: days.data});
-            console.log(state.days)
+            
           })
         })
     },
