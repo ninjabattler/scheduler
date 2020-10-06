@@ -101,6 +101,10 @@ export default {
         statusText: "No Content"
       });
     }
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
   })
   
 }
