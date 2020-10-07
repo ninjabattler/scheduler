@@ -27,7 +27,10 @@ npm test
 npm run storybook
 ```
 ## Screenshots
-!["Monday"](/home/jayden/lighthouse/scheduler/scheduler/docs/Monday.png)
-!["New"](/home/jayden/lighthouse/scheduler/scheduler/docs/Monday.png)
-!["Creating"](/home/jayden/lighthouse/scheduler/scheduler/docs/Monday.png)
-!["Deleting"](/home/jayden/lighthouse/scheduler/scheduler/docs/Monday.png)
+!["Monday"](https://github.com/ninjabattler/scheduler/blob/master/docs/Monday.png?raw=true)
+
+!["New"](https://github.com/ninjabattler/scheduler/blob/master/docs/New.png?raw=true)
+
+!["Creating"](https://github.com/ninjabattler/scheduler/blob/master/docs/Creating.png?raw=true)
+
+!["Deleting"](https://github.com/ninjabattler/scheduler/blob/master/docs/Deleting.png?raw=true)
